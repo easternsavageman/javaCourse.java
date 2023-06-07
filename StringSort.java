@@ -1,4 +1,4 @@
-// Module 2 Programming Assignment
+// Buniowski Module 2 Programming Assignment
 
 // put this at the very top of your file: 
 import java.io.*;
@@ -16,31 +16,25 @@ public class StringSort {
         int numString = Integer.parseInt(stdin.readLine());
         // getting the string
         String [] myArray = new String[numString];
-        System.out.println(myArray);
-        // read strings one at a time from input
         for (int i=0; i<numString; i++) {
-            if (i==0){
-                System.out.println("Please enter string: ");
-                //as a string: 
-                String theString = stdin.readLine();
-                myArray[i] = theString;
-            } else {
-                // sort the strings alphabetically
-                System.out.println("Please enter string: ");
-                //as a string: 
-                String theString = stdin.readLine();
-                for (int j=numString-1; j==0; j--) {
-                    if (theString.compareTo(myArray[j-1])<0) {
-                        myArray[j] = myArray[j-1];
-                        myArray[j-1] = theString;
-                    } else {
-                        myArray[j] = theString;
-                    }
+            System.out.println("Please enter string: ");
+            //as a string: 
+            String theString = stdin.readLine();
+            myArray[i] = theString;
+        }
+        for (int k=0; k<numString; k++) {
+            for (int j=0; j<(numString-1); j++) {
+                String right = myArray[j+1];
+                String left = myArray[j];
+                if (right.compareTo(left)<0) {
+                    myArray[j] = right;
+                    myArray[j+1] = left;
                 }
             }
         }
-        for (int k=numString; k<numString; k++) {
-            System.out.println(myArray[k]); 
-        }  
+        // print the strings alphabetically
+        for (int k=0; k<numString; k++) {
+            System.out.println(myArray[k]);
+        }
     }
 }
