@@ -1,36 +1,52 @@
-public class TwoThreads {
-    // public void run() {
-    //     while (true) {
-    //         move();
-    //         animate();
-    //     }
-    // }
-    int data = null;
-    synchronized void setVar(int s) {
+public class TwoThreads implements Runnable {
+
+    private int theVar = 0;
+
+    public void run() {}
+    
+    synchronized void setVar(int value) {
         try {
-            while (data != null) {
+            while (theVar != 0) {
                 notify();
                 wait();
             }
         } catch (InterruptedException e) {}
-            data = s;
+            theVar = value;
             notify();
-        }
+    }
+
     synchronized int readVal() {
         try {
-            while (data == null) {
+            while (theVar == 0) {
                 notify();
                 wait();
             }
-        } catch (InterruptedException e) {
-            
-        }
-        int temp = data;
-        data = null;
-        notify();
-        return temp;
-        }
+            } catch (InterruptedException e) { }
+
+            int temp = theVar;
+            theVar = 0;
+            notify();
+            System.out.println(temp);
+            return temp;
 }
 
-// Thread t1 = new Thread(new TwoThreads()); t1.start();
-// Thread t2 = new Thread(new TwoThreads()); t2.start();
+    public static void main(String[] argv) 
+    {
+        Thread t1 = new Thread(new TwoThreads() { 
+            public void run() {
+                for(int i=1; i<11; i++) {
+                    setVar(1);
+            }
+            }
+        });
+        
+        Thread t2 = new Thread(new TwoThreads() {  
+            public void run() {
+                readVal();
+            }
+        });
+ 
+        t2.start();
+        t1.start();        
+    }
+}
