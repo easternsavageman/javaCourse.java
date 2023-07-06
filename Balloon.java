@@ -19,7 +19,7 @@ public class Balloon {
     public static void main(String[] argv) throws IOException 
     {
         Balloon red = new Balloon();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 11; i++) {
         red.inflate();
         }
     }
