@@ -5,10 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-
-
 public class TextDisplay {
-
 
     public static void main(String[] argv) throws IOException {
         new TextDisplay().readUrlLines("https://en.wikipedia.org/wiki/Warsaw", -5);
