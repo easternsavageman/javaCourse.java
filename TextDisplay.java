@@ -40,11 +40,11 @@ public class TextDisplay {
         }
 
     }
+    
     public static void main(String[] argv) throws IOException {
         TextDisplay starWars = new TextDisplay();
         starWars.readUrlLines("https://en.wikipedia.org/wiki/Star_Wars", 5);
         starWars.readUrlLines("https://en.wikipedia.org/wiki/Star_Wars", 0);
         starWars.readUrlLines("https://en.wikipedia.org/wiki/Star_Wars", -5);
     }
-
 }
