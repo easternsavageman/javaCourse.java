@@ -7,14 +7,10 @@ import java.util.List;
 
 public class TextDisplay {
 
-    public static void main(String[] argv) throws IOException {
-        new TextDisplay().readUrlLines("https://en.wikipedia.org/wiki/Warsaw", -5);
-    }
-
     private void readUrlLines(String urlString, int lines) throws IOException {
-        URL url;
+        URL u;
         try {
-            url = new URL(urlString);
+            u = new URL(urlString);
         } catch (MalformedURLException mue) {
             System.err.println("xxx");
             return;
@@ -22,7 +18,7 @@ public class TextDisplay {
         BufferedReader br;
         List<String> allLines;
         try {
-            br = new BufferedReader(new InputStreamReader(url.openStream()));
+            br = new BufferedReader(new InputStreamReader(u.openStream()));
             allLines = br.lines().toList();
         } catch (IOException ioe) {
             System.err.println("yyy");
@@ -44,4 +40,8 @@ public class TextDisplay {
         }
         br.close();
     }
+    public static void main(String[] argv) throws IOException {
+        new TextDisplay().readUrlLines("https://en.wikipedia.org/wiki/Star_Wars", -5);
+    }
+
 }
