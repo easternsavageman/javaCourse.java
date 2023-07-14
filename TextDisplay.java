@@ -1,47 +1,50 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
+import java.io.*;
+import java.util.*;
 import java.net.URL;
-import java.util.List;
 
 public class TextDisplay {
 
-    private void readUrlLines(String urlString, int lines) throws IOException {
+    public void readUrlLines(String urlString, int lines) throws IOException {
+        
         URL u;
         try {
             u = new URL(urlString);
-        } catch (MalformedURLException mue) {
-            System.err.println("xxx");
+        } catch (IOException ioe1) {
+            System.out.println("URL written incorrectly");
             return;
         }
+
         BufferedReader br;
-        List<String> allLines;
+        List<String> allLines = new ArrayList<String>();
         try {
             br = new BufferedReader(new InputStreamReader(u.openStream()));
             allLines = br.lines().toList();
-        } catch (IOException ioe) {
-            System.err.println("yyy");
+        } catch (IOException ioe2) {
+            System.out.println("Cannot connect to site");
             return;
         }
+
         if (lines == 0) {
             for (String line : allLines) {
                 System.out.println(line);
             }
         } else if (lines > 0) {
-            for (int i = 0; i < lines && i < allLines.size(); i++) {
+            for (int i = 0; i < lines; i++) {
                 System.out.println(allLines.get(i));
             }
         } else {
-            int startIndex = allLines.size() > Math.abs(lines) ? allLines.size() + lines : 0;
-            for (int i = startIndex; i < allLines.size(); i++) {
+            int startLine = allLines.size() + lines;
+            for (int i = startLine; i < allLines.size(); i++) {
                 System.out.println(allLines.get(i));
             }
         }
-        br.close();
+
     }
     public static void main(String[] argv) throws IOException {
-        new TextDisplay().readUrlLines("https://en.wikipedia.org/wiki/Star_Wars", -5);
+        TextDisplay starWars = new TextDisplay();
+        starWars.readUrlLines("https://en.wikipedia.org/wiki/Star_Wars", 5);
+        starWars.readUrlLines("https://en.wikipedia.org/wiki/Star_Wars", 0);
+        starWars.readUrlLines("https://en.wikipedia.org/wiki/Star_Wars", -5);
     }
 
 }
